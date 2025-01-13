@@ -1,5 +1,6 @@
 from fakes.api_client import AsyncApiClient
 from fakes.image_tools import rotate_image
+from fakes.cpu_heavy import is_prime
 from bootstrap import scale_image_array
 from PIL import Image
 from asyncio import gather
@@ -41,3 +42,9 @@ async def rotate_image_task(reps: int, img_qty: int = 8) -> None:
             for image_filename in scale_image_array(img_qty)
         ]
     )
+
+
+async def first_primes_task(reps: int, complexity: int = 1_000_000) -> None:
+    for i in range(reps): 
+        for j in range(complexity):
+            is_prime(j)

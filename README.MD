@@ -26,44 +26,90 @@ With following approaches:
 
 Which should produce the output like this: 
 
+### With GIL enabled
+
 ```
 Concurrency/asyncronousy benchmark
 
 
-Benchmark                                                              Mean time (sec)  Memory
--------------------------------------------------------------------  -----------------  ----------
-Sequential IO heavy processing                                                  21.33   37.938MiB
-Falsely-asyncronous IO heavy processing                                         22.588  37.531MiB
-Truly-asyncronous IO heavy processing                                            1.043  38.797MiB
-Threaded IO heavy processing (8 threads)                                         3.353  37.734MiB
-Threaded IO heavy processing (32 threads)                                        1.223  39.000MiB
-Threaded IO heavy processing (256 threads)                                       0.962  39.906MiB
-Threaded IO heavy processing (1024 threads)                                      0.95   39.688MiB
-Multiprocessed IO heavy processing (1 process, 1 item per task)                 22.852  38.406MiB
-Multiprocessed IO heavy processing (2 processes, 1 item per task)               11.839  38.578MiB
-Multiprocessed IO heavy processing (8 processes, 1 item per task)                3.665  38.391MiB
-Multiprocessed IO heavy processing (32 processes, 1 item per task)               2.123  38.203MiB
-Multiprocessed IO heavy processing (1 process, 5 items per task)                22.63   38.281MiB
-Multiprocessed IO heavy processing (2 processes, 5 items per task)              11.909  38.062MiB
-Multiprocessed IO heavy processing (8 processes, 5 items per task)               4.1    37.672MiB
-Multiprocessed IO heavy processing (32 processes, 5 items per task)              3.095  38.062MiB
-Sequential CPU heavy processing                                                 42.885  633.562MiB
-Asyncronous CPU heavy processing                                                43.453  617.734MiB
-Threaded CPU heavy processing (2 threads, 64 images)                            42.136  629.109MiB
-Threaded CPU heavy processing (8 threads, 64 images)                            42.149  607.719MiB
-Threaded CPU heavy processing (32 threads, 64 images)                           43.392  613.156MiB
-Threaded CPU heavy processing (64 threads, 64 images)                           42.613  617.578MiB
-Threaded CPU heavy processing (128 threads, 64 images)                          42.538  612.422MiB
-Multiprocessed CPU heavy processing (2 processes, 64 images)                    23.868  1.470GiB
-Multiprocessed CPU heavy processing (4 processes, 64 images)                    16.715  1.429GiB
-Multiprocessed CPU heavy processing (8 processes, 64 images)                    14.871  1.520GiB
-Multiprocessed CPU heavy processing (16 processes, 64 images)                   14.933  1.424GiB
-Multiprocessed CPU heavy processing (32 processes, 64 images)                   15.529  1.369GiB
-Multiprocessed CPU heavy processing (128 processes, 64 images)                  16.708  1.335GiB
+Benchmark                                                                     Mean time (sec)  Memory
+--------------------------------------------------------------------------  -----------------  ---------
+Sequential IO heavy processing                                                         22.786  41.984MiB
+Falsely-asyncronous IO heavy processing                                                22.244  42.156MiB
+Truly-asyncronous IO heavy processing                                                   1.135  42.297MiB
+Threaded IO heavy processing (8 threads)                                                3.221  49.109MiB
+Threaded IO heavy processing (32 threads)                                               1.167  68.141MiB
+Threaded IO heavy processing (256 threads)                                              0.864  82.156MiB
+Threaded IO heavy processing (1024 threads)                                             0.902  82.891MiB
+Multiprocessed IO heavy processing (1 process, 1 item per task)                        21.591  82.891MiB
+Multiprocessed IO heavy processing (2 processes, 1 item per task)                      11.706  82.891MiB
+Multiprocessed IO heavy processing (8 processes, 1 item per task)                       3.442  82.891MiB
+Multiprocessed IO heavy processing (32 processes, 1 item per task)                      2.412  82.891MiB
+Multiprocessed IO heavy processing (1 process, 5 items per task)                       21.128  82.891MiB
+Multiprocessed IO heavy processing (2 processes, 5 items per task)                     11.051  82.891MiB
+Multiprocessed IO heavy processing (8 processes, 5 items per task)                      4.424  82.891MiB
+Multiprocessed IO heavy processing (32 processes, 5 items per task)                     3.119  82.891MiB
+Sequential CPU heavy processing (first primes 1_000_000)                              108.723  82.891MiB
+Asyncronous CPU heavy processing (first primes 1_000_000)                             108.79   82.891MiB
+Threaded CPU heavy processing (first primes 1_000_000) 2 threads                       57.351  82.891MiB
+Threaded CPU heavy processing (first primes 1_000_000) 8 threads                       29.737  82.891MiB
+Threaded CPU heavy processing (first primes 1_000_000) 16 threads                      30.067  82.891MiB
+Threaded CPU heavy processing (first primes 1_000_000) 32 threads                      29.051  83.281MiB
+Threaded CPU heavy processing (first primes 1_000_000) 64 threads                      28.941  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 2 processes               56.657  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 4 processes               29.935  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 8 processes               19.309  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 16 processes              18.596  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 32 processes              18.913  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 128 processes             19.33   84.203MiB
 
 Platform: macOS-15.2-arm64-arm-64bit-Mach-O
 CPU Count: 8
 pyperf version: 2.8.1
 python version: cpython3.13.1 (64-bit) revision 06714517797
+```
+
+### With GIL disabled
+
+```
+Concurrency/asyncronousy benchmark
+
+
+Benchmark                                                                     Mean time (sec)  Memory
+--------------------------------------------------------------------------  -----------------  ---------
+Sequential IO heavy processing                                                         22.786  41.984MiB
+Falsely-asyncronous IO heavy processing                                                22.244  42.156MiB
+Truly-asyncronous IO heavy processing                                                   1.135  42.297MiB
+Threaded IO heavy processing (8 threads)                                                3.221  49.109MiB
+Threaded IO heavy processing (32 threads)                                               1.167  68.141MiB
+Threaded IO heavy processing (256 threads)                                              0.864  82.156MiB
+Threaded IO heavy processing (1024 threads)                                             0.902  82.891MiB
+Multiprocessed IO heavy processing (1 process, 1 item per task)                        21.591  82.891MiB
+Multiprocessed IO heavy processing (2 processes, 1 item per task)                      11.706  82.891MiB
+Multiprocessed IO heavy processing (8 processes, 1 item per task)                       3.442  82.891MiB
+Multiprocessed IO heavy processing (32 processes, 1 item per task)                      2.412  82.891MiB
+Multiprocessed IO heavy processing (1 process, 5 items per task)                       21.128  82.891MiB
+Multiprocessed IO heavy processing (2 processes, 5 items per task)                     11.051  82.891MiB
+Multiprocessed IO heavy processing (8 processes, 5 items per task)                      4.424  82.891MiB
+Multiprocessed IO heavy processing (32 processes, 5 items per task)                     3.119  82.891MiB
+Sequential CPU heavy processing (first primes 1_000_000)                              108.723  82.891MiB
+Asyncronous CPU heavy processing (first primes 1_000_000)                             108.79   82.891MiB
+Threaded CPU heavy processing (first primes 1_000_000) 2 threads                       57.351  82.891MiB
+Threaded CPU heavy processing (first primes 1_000_000) 8 threads                       29.737  82.891MiB
+Threaded CPU heavy processing (first primes 1_000_000) 16 threads                      30.067  82.891MiB
+Threaded CPU heavy processing (first primes 1_000_000) 32 threads                      29.051  83.281MiB
+Threaded CPU heavy processing (first primes 1_000_000) 64 threads                      28.941  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 2 processes               56.657  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 4 processes               29.935  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 8 processes               19.309  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 16 processes              18.596  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 32 processes              18.913  84.203MiB
+Multiprocessed CPU heavy processing (first primes 1_000_000) 128 processes             19.33   84.203MiB
+
+Platform: macOS-15.2-arm64-arm-64bit-Mach-O
+CPU Count: 8
+pyperf version: 2.8.1
+python version: cpython3.13.1 (64-bit) revision 06714517797
+
 ```
 
